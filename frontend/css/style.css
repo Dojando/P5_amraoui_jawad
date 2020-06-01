@@ -1,0 +1,36 @@
+/* Général */
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container
+{
+    display: flex;
+    flex-direction: column;
+}
+
+/* header */
+
+header {
+    text-align: center;
+    background-color: brown;
+}
+
+header h1 {
+    font-size: 3em;
+    color: white;
+}
+
+/* footer */
+
+footer {
+    text-align: center;
+    background-color: burlywood;
+}
+
+footer p {
+    font-size: 1.5em;
+}
