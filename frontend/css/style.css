@@ -20,8 +20,18 @@ header {
 }
 
 header h1 {
+    text-decoration: none;
+}
+
+header h1 {
     font-size: 3em;
     color: white;
+}
+
+/* body */
+
+article {
+    margin: 10px 0 10px 0;
 }
 
 /* footer */
