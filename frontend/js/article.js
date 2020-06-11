@@ -36,7 +36,7 @@ fetch('http://localhost:3000/api/cameras')
     for (let i = 0; i < json.length; i++) {
         container.innerHTML +=
         '<div class="col-12 col-md-6">'+
-        '<a href="produit.html" class="lien_article">'+
+        '<a href="produit.html?id='+json[i]._id+'" class="lien_article">'+
         '<article class="card">'+
             '<img class=”card-img-top” src='+json[i].imageUrl+' alt=”...”>'+
             '<div class="card-body">'+
