@@ -19,28 +19,46 @@
 
         <section>
             <h2>Panier</h2>
-            <div class="card article_panier">
-                <div class="card-body row justify-content-between">
-                    <img class="col-3 align-self-center" src="http://localhost:3000/images/vcam_1.jpg" alt="">
-                    <p class="card-text align-self-center h5">Zurss 50S</p>
-                    <p class="card-text align-self-center h5">49900 EUR</p>
-                    <a href="#" class="btn btn-danger align-self-center">Supprimer</a>
-                </div>
+            <div id="container">
             </div>
-            <div class="card article_panier">
-                <div class="card-body row justify-content-between">
-                    <img class="col-3 align-self-center" src="http://localhost:3000/images/vcam_1.jpg" alt="">
-                    <p class="card-text align-self-center h5">Zurss 50S</p>
-                    <p class="card-text align-self-center h5">49900 EUR</p>
-                    <a href="#" class="btn btn-danger align-self-center">Supprimer</a>
-                </div>
-            </div>
-            <div class="card">
+            <div class="card total">
                 <div class="card-body row justify-content-between">
                     <p class="card-title align-self-center h3">Total</p>
-                    <p class="card-text align-self-center h3">49900 EUR</p>
+                    <p id="prixTotal" class="card-text align-self-center h3">49900 EUR</p>
                 </div>
             </div>
+
+            <form class="form_commande">
+                <p class="h2">Formulaire de commande</p>
+                <div class="form-row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="Prenom">Prénom</label>
+                            <input type="text" class="form-control" id="Prenom" placeholder="Votre Prénom" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="Nom">Nom</label>
+                            <input type="text" class="form-control" id="Nom" placeholder="Votre Nom" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="Adresse">Adresse Postale</label>
+                    <input type="text" class="form-control" id="Adresse" placeholder="Votre Adresse Postale" required>
+                </div>
+                <div class="form-group">
+                    <label for="Ville">Ville</label>
+                    <input type="text" class="form-control" id="Ville" placeholder="Votre ville" required>
+                </div>
+                <div class="form-group">
+                    <label for="Email">Adresse Email</label>
+                    <input type="email" class="form-control" id="Email" placeholder="Votre Email" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Passer ma commande</button>
+            </form>
+
         </section>
 
         <footer>
@@ -51,5 +69,6 @@
             </div>
         </footer>
     </div>
+    <script src="js/panier.js"></script>
 </body>
 </html>

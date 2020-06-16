@@ -48,6 +48,14 @@ article {
     min-width: 150px;
 }
 
+.total {
+    margin-bottom: 50px;
+}
+
+.form_commande {
+    margin-bottom: 50px;
+}
+
 /* footer */
 
 footer {
