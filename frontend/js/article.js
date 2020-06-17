@@ -1,31 +1,3 @@
-// const container = document.getElementById('container');
-// console.log(container,"container");
-
-// container.innerHTML = `
-// <div class="col-12 col-md-6">
-// <article class="card">
-//      <img class=”card-img-top” src=”” alt=”...”>
-//      <div class="card-body">
-//          <h2>Produit</h2>
-//      </div>
-// </article>
-// </div>`;
-// let data = [];
-// let function = fetch('http://localhost:3000/api/cameras')
-// .then(function(response) {
-//     return response.json();
-// })
-// .then(function(json){
-//     // console.log(json);
-//     return json;
-//     }
-// })
-// .catch(function(error) {
-//     console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
-// });
-// console.log(data);
-
-
 const container = document.getElementById('container');
 
 fetch('http://localhost:3000/api/cameras')
