@@ -9,12 +9,8 @@
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="row">
-                <div class="col">
-                    <a href="index.html"><h1>Orinoco</h1></a>
-                </div>
-            </div>
+        <header class="header_page">
+            <a href="index.html"><h1>Orinoco</h1></a>
         </header>
 
         <section>
@@ -28,33 +24,48 @@
                 </div>
             </div>
 
-            <form class="form_commande">
+            <form class="form_commande needs-validation" novalidate>
                 <p class="h2">Formulaire de commande</p>
                 <div class="form-row">
                     <div class="col">
                         <div class="form-group">
                             <label for="Prenom">Prénom</label>
                             <input type="text" class="form-control" id="Prenom" placeholder="Votre Prénom" required>
+                            <div class="invalid-feedback">
+                                Prénom invalide
+                            </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
                             <label for="Nom">Nom</label>
                             <input type="text" class="form-control" id="Nom" placeholder="Votre Nom" required>
+                            <div class="invalid-feedback">
+                                Nom invalide
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="Adresse">Adresse Postale</label>
                     <input type="text" class="form-control" id="Adresse" placeholder="Votre Adresse Postale" required>
+                    <div class="invalid-feedback">
+                        Adresse invalide
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="Ville">Ville</label>
                     <input type="text" class="form-control" id="Ville" placeholder="Votre ville" required>
+                    <div class="invalid-feedback">
+                        Ville invalide
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="Email">Adresse Email</label>
                     <input type="email" class="form-control" id="Email" placeholder="Votre Email" required>
+                    <div class="invalid-feedback">
+                        Email invalide
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Passer ma commande</button>
             </form>
