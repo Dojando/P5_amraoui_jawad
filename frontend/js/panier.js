@@ -5,9 +5,6 @@ let btnSupprimer = document.getElementsByClassName('btn_supprimer');
 let prixPanier = document.getElementsByClassName('prix_article_panier');
 let prixTotal = document.getElementById('prixTotal');
 
-// localstorage du panier pour stocker les articles
-
-let panier = JSON.parse(localStorage.getItem("panier"));
 let listPrix = [];
 let stringArray;
 let y = 0;
@@ -15,27 +12,29 @@ let eur = " EUR";
 let tabObj = [];
 
 
+// localstorage du panier pour stocker les articles
+
+let panier = JSON.parse(localStorage.getItem("panier"));
+
+
 // recupération des infos
 
+infor();
 async function infor() {
     tabObj = [];
-    console.log(panier);
-    console.log(panier.length);
     for (let i = 0; i < panier.length; i++) {
-        console.log("test");
-        console.log("func en cours")
         let response = await fetch('http://localhost:3000/api/cameras/'+panier[i]);
-        console.log("func en cours")
         let json = await response.json();
-        console.log("func en cours")
         tabObj.push(json);
     }
+    affichage_article();
 }
 
-async function affichage_article() {
-    await infor();
+
+// affichage des articles
+
+function affichage_article() {
     for (let i = 0; i < panier.length; i++) {
-        await tabObj[i];
         container.innerHTML += 
         '<div class="card article_panier">'+
         '<div class="card-body row justify-content-between">'+
@@ -46,20 +45,19 @@ async function affichage_article() {
         '</div>'+
         '</div>'
     }
+    prixTotalDynamique();
 }
-affichage_article();
 
 
 // script prix total dynamique
 
-async function prixTotalDynamique() {
-    await affichage_article();
+function prixTotalDynamique() {
     for (let i = 0; i < panier.length; i++) {
         y += tabObj[i].price / 100;
     }
     prixTotal.innerHTML = y + eur;
 }
-prixTotalDynamique();
+
 
 
 // script boutton supprimer
@@ -74,79 +72,6 @@ function btnDelete(id) {
     location.reload();
     return false;
 }
-
-
-// let tabObj = [];
-
-// async function infor() {
-//     for (let i = 0; i < panier.length; i++) {
-//         let response = await fetch('http://localhost:3000/api/cameras/'+panier[i]);
-//         let json = await response.json();
-//         tabObj.push(json);
-//         console.log("func en cours")
-//         // console.log(tabObj[0].price);
-//     }
-// }
-
-
-
-// for (let i = 0; i < panier.length; i++) {
-//     console.log(panier[i]);
-//     fetch('http://localhost:3000/api/cameras/'+panier[i])
-//         .then(function(response) {
-//             return response.json();
-//         })
-//         .then(function(json) {
-//             console.log(json.name);
-//             container.innerHTML += 
-//             '<div class="card article_panier">'+
-//             '<div class="card-body row justify-content-between">'+
-//                 '<img class="col-3 align-self-center" src='+json.imageUrl+' alt="">'+
-//                 '<p class="card-text align-self-center h5">'+json.name+'</p>'+
-//                 '<p class="card-text align-self-center h5 prix_article_panier">'+json.price / 100 + " EUR"+'</p>'+
-//                 '<button onclick="btnDelete(\'' + panier[i] + '\')" class="btn btn-danger align-self-center btn_supprimer '+panier[i]+'">Supprimer</button>'+
-//             '</div>'+
-//             '</div>'
-//         })
-//         // script prix total dynamique
-//         .then(function() {
-//             stringArray = prixPanier[i].innerHTML.split(" ").map(Number);
-//             y += stringArray[0];
-//             prixTotal.innerHTML = y + eur;
-//         })
-//         // script boutton supprimer
-//         .catch(function() {
-//             console.log("! erreur de promesse !");
-//         });
-// }
-
-
-// function btnDelete(id) {
-//     console.log(id);
-// }
-
-// script prix total dynamique
-
-// console.log(prixTotal.innerHTML);
-
-// console.log(prixPanier.length);
-
-
-
-// for (let i = 0; i < prixPanier.length; i++) {
-//     stringArray = prixPanier[i].innerHTML.split(" ").map(Number);
-//     listPrix.push(stringArray[0]);
-// }
-
-// console.log(listPrix);
-
-
-
-// for (let z = 0; z < listPrix.length; z++) {
-    
-//     y = y + listPrix[z];
-//     prixTotal.innerHTML = y + ' EUR';
-// }
 
 
 // script pour la validation du formulaire
@@ -174,7 +99,10 @@ let villeValue;
 let emailValue;
 let inputValue = [prenomValue, nomValue, adresseValue, villeValue, emailValue];
 
+
+
 form[0].addEventListener('submit', function(e) {
+    let valid = true;
     inputValue[0] = regex_formulaire.prenom.test(prenom.value);
     inputValue[1] = regex_formulaire.nom.test(nom.value);
     inputValue[2] = regex_formulaire.adresse.test(adresse.value);
@@ -183,11 +111,35 @@ form[0].addEventListener('submit', function(e) {
     for (let i = 0; i < input.length; i++) {
         if (inputValue[i] == false) {
             e.preventDefault();
+            valid = false;
             input[i].classList.remove('is-valid');
             input[i].classList.add('is-invalid');
         } else {
+            e.preventDefault();
             input[i].classList.remove('is-invalid');
             input[i].classList.add('is-valid');
         }
+    }
+    // Envoie des infos au serveur
+    if (valid == true) {
+        let contact = {
+            prenom: prenom.value,
+            nom: nom.value,
+            adresse: adresse.value,
+            ville: ville.value,
+            email: email.value
+        };
+        let products = panier;
+        console.log(contact);
+        console.log(products);
+        let options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify([contact, products]) 
+        }
+        console.log(JSON.stringify([contact, products]));
+        fetch('/order', options)
     }
 })
