@@ -6,12 +6,13 @@ let prixTotal = document.getElementById('prixTotal');
 let y = 0;
 let eur = " EUR";
 let tabObj = [];
-
+let panier = [];
 
 // localstorage du panier pour stocker les articles
 
-let panier = JSON.parse(localStorage.getItem("panier"));
-
+if (localStorage.getItem("panier") != null) {
+    panier = JSON.parse(localStorage.getItem("panier"));
+}
 
 // recupération des infos
 
@@ -104,50 +105,54 @@ form[0].addEventListener('submit', function(e) {
     inputValue[2] = regex_formulaire.adresse.test(adresse.value);
     inputValue[3] = regex_formulaire.ville.test(ville.value);
     inputValue[4] = regex_formulaire.email.test(email.value);
-    for (let i = 0; i < input.length; i++) {
-        if (inputValue[i] == false) {
-            e.preventDefault();
-            valid = false;
-            input[i].classList.remove('is-valid');
-            input[i].classList.add('is-invalid');
-        } else {
-            e.preventDefault();
-            input[i].classList.remove('is-invalid');
-            input[i].classList.add('is-valid');
+    if (panier.length == 0 || panier == null) {
+        window.alert("Aucun article dans le panier, impossible de valider la commande");
+    } else {
+        for (let i = 0; i < input.length; i++) {
+            if (inputValue[i] == false) {
+                e.preventDefault();
+                valid = false;
+                input[i].classList.remove('is-valid');
+                input[i].classList.add('is-invalid');
+            } else {
+                e.preventDefault();
+                input[i].classList.remove('is-invalid');
+                input[i].classList.add('is-valid');
+            }
         }
-    }
-    // Envoie des infos au serveur
-    if (valid == true) {
-        let contact = {
-            firstName: prenom.value,
-            lastName: nom.value,
-            address: adresse.value,
-            city: ville.value,
-            email: email.value
-        };
-        let products = panier;
-        let options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                contact,
-                products
-            })
+        // Envoie des infos au serveur
+        if (valid == true) {
+            let contact = {
+                firstName: prenom.value,
+                lastName: nom.value,
+                address: adresse.value,
+                city: ville.value,
+                email: email.value
+            };
+            let products = panier;
+            let options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    contact,
+                    products
+                })
+            }
+            console.log(contact);
+            console.log(products);
+            console.log(JSON.stringify([contact, products]));
+            fetch('http://localhost:3000/api/cameras/order', options)
+                .then(function(response) {
+                    return response.text();
+                })
+                .then(function(data) {
+                    localStorage.setItem("orderId", JSON.parse(data).orderId);
+                })
+                .then(function() {
+                    window.location.href = "confirmation.html";
+                })
         }
-        console.log(contact);
-        console.log(products);
-        console.log(JSON.stringify([contact, products]));
-        fetch('http://localhost:3000/api/cameras/order', options)
-            .then(function(response) {
-                return response.text();
-            })
-            .then(function(data) {
-                localStorage.setItem("orderId", JSON.parse(data).orderId);
-            })
-            .then(function() {
-                window.location.href = "confirmation.html";
-            })
     }
 })

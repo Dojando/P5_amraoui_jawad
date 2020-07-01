@@ -70,6 +70,18 @@ article {
     margin-bottom: 50px;
 }
 
+#confirmation_prix {
+    margin-bottom: 50px;
+}
+
+#confirmation_id {
+    margin-bottom: 100px;
+}
+
+.infos_confirmation {
+    color: blue;
+}
+
 /* footer */
 
 footer {
