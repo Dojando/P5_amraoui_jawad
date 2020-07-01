@@ -1,12 +1,8 @@
 // script ajout des articles
 
 const container = document.getElementById('container');
-let btnSupprimer = document.getElementsByClassName('btn_supprimer');
-let prixPanier = document.getElementsByClassName('prix_article_panier');
 let prixTotal = document.getElementById('prixTotal');
 
-let listPrix = [];
-let stringArray;
 let y = 0;
 let eur = " EUR";
 let tabObj = [];
@@ -55,9 +51,9 @@ function prixTotalDynamique() {
     for (let i = 0; i < panier.length; i++) {
         y += tabObj[i].price / 100;
     }
-    prixTotal.innerHTML = y + eur;
+    prixTotal.innerHTML = y + eur
+    localStorage.setItem("prixTotal", y);
 }
-
 
 
 // script boutton supprimer
@@ -123,23 +119,35 @@ form[0].addEventListener('submit', function(e) {
     // Envoie des infos au serveur
     if (valid == true) {
         let contact = {
-            prenom: prenom.value,
-            nom: nom.value,
-            adresse: adresse.value,
-            ville: ville.value,
+            firstName: prenom.value,
+            lastName: nom.value,
+            address: adresse.value,
+            city: ville.value,
             email: email.value
         };
         let products = panier;
-        console.log(contact);
-        console.log(products);
         let options = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify([contact, products]) 
+            body: JSON.stringify({
+                contact,
+                products
+            })
         }
+        console.log(contact);
+        console.log(products);
         console.log(JSON.stringify([contact, products]));
-        fetch('/order', options)
+        fetch('http://localhost:3000/api/cameras/order', options)
+            .then(function(response) {
+                return response.text();
+            })
+            .then(function(data) {
+                localStorage.setItem("orderId", JSON.parse(data).orderId);
+            })
+            .then(function() {
+                window.location.href = "confirmation.html";
+            })
     }
 })
