@@ -8,46 +8,30 @@
     <title>Produit</title>
 </head>
 <body>
-    <div class="container">
-        <header class="header_page">
-            <a href="index.html"><h1>Orinoco</h1></a>
-            <a href="panier.html"><p class="lien_panier">Panier</p></a>
-        </header>
+    <header class="header_page">
+        <a href="index.html"><h1>Orinoco</h1></a>
+        <a href="panier.html"><p class="lien_panier">Panier</p></a>
+    </header>
 
-        <section>
-            <div class="col">
-                <img id="imgProduit" src="http://localhost:3000/images/vcam_1.jpg" alt="">
-            </div>
-            <div class="col nom_produit">
-                <h2 id="titreProduit"></h2>
-            </div>
-            <div class="col">   
-                <h3 id="prixProduit"></h3>
-            </div>
-            <div class="col">
-                <p id="descriptionProduit"></div>
-            <div class="col">
-                <div class="form-group">
-                    <label for="sel1">Lentilles :</label>
-                    <select class="form-control" id="sel1">
-                        <option>Aucune</option>
-                    </select>
-                  </div>
-            </div>
-            <div class="col">
-                <a id="btnAjoutPanier" href="panier.html">
-                    <button type="button" class="btn btn-success">Ajouter au panier</button>
-                </a>
-            </div>
-        </section>
-        <footer>
-            <div class="row">
-                <div class="col">
-                    <p>Mentions légales</p>
-                </div>
-            </div>
-        </footer>
-    </div>
+    <section class="container">
+        <img class="col" id="imgProduit" src="http://localhost:3000/images/vcam_1.jpg" alt="image de la caméra">
+        <h2 id="titreProduit" class="col nom_produit"></h2>
+        <h3 class="col" id="prixProduit"></h3>
+        <p class="col" id="descriptionProduit">
+        <div class="form-group col">
+            <label for="sel1">Lentilles :</label>
+            <select class="form-control" id="sel1">
+                <option>Aucune</option>
+            </select>
+        </div>
+        <div class="col">
+            <a id="btnAjoutPanier" class="btn btn-success" href="panier.html">Ajouter au panier</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>Mentions légales</p>
+    </footer>
     <script src="js/pageproduit.js"></script>
 </body>
 </html>

@@ -7,79 +7,86 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>Panier</title>
 </head>
+
 <body>
-    <div class="container">
-        <header class="header_page">
-            <a href="index.html"><h1>Orinoco</h1></a>
-        </header>
+    <header class="header_page">
+        <a href="index.html"><h1>Orinoco</h1></a>
+    </header>
 
-        <section>
-            <h2>Panier</h2>
-            <div id="container">
+    <section class="container">
+        <h2>Panier</h2>
+        <div id="container">
+            <!-- contenu dynamique (articles) -->
+        </div>
+        <section class="card total">
+            <div class="card-body row justify-content-between">
+                <h3 class="card-title align-self-center h3">Total</h3>
+                <p id="prixTotal" class="card-text align-self-center h3">0 EUR</p>
             </div>
-            <div class="card total">
-                <div class="card-body row justify-content-between">
-                    <p class="card-title align-self-center h3">Total</p>
-                    <p id="prixTotal" class="card-text align-self-center h3">0 EUR</p>
-                </div>
-            </div>
-
-            <form class="form_commande needs-validation" novalidate>
-                <p class="h2">Formulaire de commande</p>
-                <div class="form-row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="Prenom">Prénom</label>
-                            <input type="text" class="form-control" id="Prenom" placeholder="Votre Prénom" required>
-                            <div class="invalid-feedback">
-                                Prénom invalide
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="Nom">Nom</label>
-                            <input type="text" class="form-control" id="Nom" placeholder="Votre Nom" required>
-                            <div class="invalid-feedback">
-                                Nom invalide
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Adresse">Adresse Postale</label>
-                    <input type="text" class="form-control" id="Adresse" placeholder="Votre Adresse Postale" required>
-                    <div class="invalid-feedback">
-                        Adresse invalide
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Ville">Ville</label>
-                    <input type="text" class="form-control" id="Ville" placeholder="Votre ville" required>
-                    <div class="invalid-feedback">
-                        Ville invalide
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="Email">Adresse Email</label>
-                    <input type="email" class="form-control" id="Email" placeholder="Votre Email" required>
-                    <div class="invalid-feedback">
-                        Email invalide
-                    </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Passer ma commande</button>
-            </form>
-
         </section>
 
-        <footer>
-            <div class="row">
+        <!-- formulaire de validation -->
+        <form class="form_commande needs-validation" novalidate>
+            <p class="h2">Formulaire de commande</p>
+            <div class="form-row">
                 <div class="col">
-                    <p>Mentions légales</p>
+                    <!-- champ prénom -->
+                    <div class="form-group">
+                        <label for="Prenom">Prénom</label>
+                        <input type="text" class="form-control" id="Prenom" placeholder="Votre Prénom" required>
+                        <!-- message d'erreur -->
+                        <div class="invalid-feedback">
+                            Prénom invalide
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <!-- champ nom -->
+                    <div class="form-group">
+                        <label for="Nom">Nom</label>
+                        <input type="text" class="form-control" id="Nom" placeholder="Votre Nom" required>
+                        <!-- message d'erreur -->
+                        <div class="invalid-feedback">
+                            Nom invalide
+                        </div>
+                    </div>
                 </div>
             </div>
-        </footer>
-    </div>
+            <!-- champ adresse -->
+            <div class="form-group">
+                <label for="Adresse">Adresse Postale</label>
+                <input type="text" class="form-control" id="Adresse" placeholder="Votre Adresse Postale" required>
+                <!-- message d'erreur -->
+                <div class="invalid-feedback">
+                    Adresse invalide
+                </div>
+            </div>
+            <!-- champ ville -->
+            <div class="form-group">
+                <label for="Ville">Ville</label>
+                <input type="text" class="form-control" id="Ville" placeholder="Votre ville" required>
+                <!-- message d'erreur -->
+                <div class="invalid-feedback">
+                    Ville invalide
+                </div>
+            </div>
+            <!-- champ email -->
+            <div class="form-group">
+                <label for="Email">Adresse Email</label>
+                <input type="email" class="form-control" id="Email" placeholder="Votre Email" required>
+                <!-- message d'erreur -->
+                <div class="invalid-feedback">
+                    Email invalide
+                </div>
+            </div>
+            <!-- bouton de validation -->
+            <button type="submit" class="btn btn-primary">Passer ma commande</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>Mentions légales</p>
+    </footer>
     <script src="js/panier.js"></script>
 </body>
 </html>

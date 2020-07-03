@@ -23,14 +23,13 @@ img {
     display: flex;
     justify-content: center;
     text-align: center;
-    background-color: brown;
+    background-color: #504D4D;
     margin-bottom: 15px;
     position: relative;
 }
 
 .header_page h1 {
-    text-decoration: none;
-    font-size: 3em;
+    font-size: 4em;
     color: white;
 }
 
@@ -39,7 +38,7 @@ img {
     color: white;
     text-decoration: none;
     position: absolute;
-    top: 15px;
+    top: 26px;
     right: 20px;
 }
 
@@ -49,12 +48,21 @@ article {
     margin: 10px 0 10px 0;
 }
 
+a *{
+    text-decoration: none;
+    display: inline-block;
+}
+
 .nom_produit {
     margin-bottom: 30px;
 }
 
 .article_panier img {
     min-width: 150px;
+}
+
+#btnAjoutPanier {
+    margin-bottom: 50px;
 }
 
 .total {
@@ -85,11 +93,14 @@ article {
 /* footer */
 
 footer {
+    padding: 10px 0;
     text-align: center;
-    background-color: burlywood;
+    background-color: #504D4D;
     margin-top: 15px;
 }
 
 footer p {
+    color: white;
     font-size: 1.5em;
+    margin-bottom: 0px;
 }

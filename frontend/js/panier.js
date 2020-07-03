@@ -1,34 +1,46 @@
-// script ajout des articles
-
+// récuperation des éléments html
 const container = document.getElementById('container');
-let prixTotal = document.getElementById('prixTotal');
+const prixTotal = document.getElementById('prixTotal');
 
+// initialisation des variables
 let y = 0;
-let eur = " EUR";
+let  it = 0;
+const eur = " EUR";
 let tabObj = [];
 let panier = [];
 
-// localstorage du panier pour stocker les articles
+
+// récuperation des infos du localstorage "panier"
 
 if (localStorage.getItem("panier") != null) {
     panier = JSON.parse(localStorage.getItem("panier"));
 }
 
-// recupération des infos
 
-infor();
-async function infor() {
-    tabObj = [];
-    for (let i = 0; i < panier.length; i++) {
-        let response = await fetch('http://localhost:3000/api/cameras/'+panier[i]);
-        let json = await response.json();
-        tabObj.push(json);
+// recupération des infos des produits du panier
+
+data_fetch();
+function data_fetch() {
+    if (panier.length > 0) {
+        fetch('http://localhost:3000/api/cameras/'+panier[it])
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            tabObj.push(data);
+            if (tabObj.length == panier.length) {
+                affichage_article();
+            } 
+            else {
+                it++;
+                data_fetch();
+            }
+        })
     }
-    affichage_article();
 }
 
 
-// affichage des articles
+// affichage des articles avec du code html dynamique
 
 function affichage_article() {
     for (let i = 0; i < panier.length; i++) {
@@ -49,10 +61,11 @@ function affichage_article() {
 // script prix total dynamique
 
 function prixTotalDynamique() {
+    // somme de tous les prix et stockage du prix total
     for (let i = 0; i < panier.length; i++) {
         y += tabObj[i].price / 100;
     }
-    prixTotal.innerHTML = y + eur
+    prixTotal.innerHTML = y + eur;
     localStorage.setItem("prixTotal", y);
 }
 
@@ -72,32 +85,30 @@ function btnDelete(id) {
 
 
 // script pour la validation du formulaire
-
-let regex_formulaire = {
+// création des règles regex
+const regex_formulaire = {
     prenom: /^[A-Z-]{1,100}$/i,
     nom: /^[A-Z-]{1,100}$/i,
     adresse: /^[A-Z-\d ]{1,100}$/i,
     ville: /^[A-Z- ]{1,100}$/i,
     email: /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]+){2,4}$/i,
 }
-
-let form = document.getElementsByClassName('needs-validation');
-let prenom = document.getElementById('Prenom');
-let nom = document.getElementById('Nom');
-let adresse = document.getElementById('Adresse');
-let ville = document.getElementById('Ville');
-let email = document.getElementById('Email');
-let input = [prenom, nom, adresse, ville, email];
-
+// récuperation des éléments html
+const form = document.getElementsByClassName('needs-validation');
+const prenom = document.getElementById('Prenom');
+const nom = document.getElementById('Nom');
+const adresse = document.getElementById('Adresse');
+const ville = document.getElementById('Ville');
+const email = document.getElementById('Email');
+const input = [prenom, nom, adresse, ville, email];
+// initialisation des variables
 let prenomValue;
 let nomValue;
 let adresseValue;
 let villeValue;
 let emailValue;
 let inputValue = [prenomValue, nomValue, adresseValue, villeValue, emailValue];
-
-
-
+// création du bouton de validation de formulaire
 form[0].addEventListener('submit', function(e) {
     let valid = true;
     inputValue[0] = regex_formulaire.prenom.test(prenom.value);
@@ -108,6 +119,7 @@ form[0].addEventListener('submit', function(e) {
     if (panier.length == 0 || panier == null) {
         window.alert("Aucun article dans le panier, impossible de valider la commande");
     } else {
+        // vérification des informations renseignées
         for (let i = 0; i < input.length; i++) {
             if (inputValue[i] == false) {
                 e.preventDefault();
@@ -140,17 +152,14 @@ form[0].addEventListener('submit', function(e) {
                     products
                 })
             }
-            console.log(contact);
-            console.log(products);
-            console.log(JSON.stringify([contact, products]));
             fetch('http://localhost:3000/api/cameras/order', options)
                 .then(function(response) {
                     return response.text();
                 })
+                // récuperation des infos du serveur
                 .then(function(data) {
                     localStorage.setItem("orderId", JSON.parse(data).orderId);
-                })
-                .then(function() {
+                    // redirection vers la page de confirmation
                     window.location.href = "confirmation.html";
                 })
         }
