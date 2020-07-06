@@ -104,3 +104,26 @@ footer p {
     font-size: 1.5em;
     margin-bottom: 0px;
 }
+
+
+/* Création des règles pour un site responsive */
+
+@media all and (max-width: 576px) {
+    .header_page_panier {
+        height: 150px;
+    }
+
+    .lien_panier {
+        position: absolute;
+        top: 100px;
+        right: 42%;
+    }
+
+    .article_panier img {
+        display: none;
+    }
+
+    .article_panier p {
+        font-size: 1.15em;
+    }
+}
